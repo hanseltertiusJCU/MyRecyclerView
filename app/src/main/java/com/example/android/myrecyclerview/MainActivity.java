@@ -55,12 +55,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showSelectedHero(Hero hero){
+        // Toast message untuk menunjukkan kamu memilih nama apa
+        Toast.makeText(this, "Kamu memilih " + hero.getName(), Toast.LENGTH_SHORT).show();
+    }
+
     private void showRecyclerList(){
         rvCategory.setLayoutManager(new LinearLayoutManager(this)); // Vertical LinearLayout is the type of RecyclerView
         ListHeroAdapter listHeroAdapter = new ListHeroAdapter(this); // Create Adapter object that extends RecyclerViewAdapter
         listHeroAdapter.setListHero(list); // Call setter method dri ArrayList yg menampung data sbg parameter
         rvCategory.setAdapter(listHeroAdapter); // Set adapter ke RecyclerView
-
+        // Call itemclicksupport class and static method addto,
+        // sehingga attach event click ke item yang ada di RecyclerView
+        ItemClickSupport.addTo(rvCategory).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            // Apply method from interface
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                // Call method to show toast message
+                showSelectedHero(list.get(position));
+            }
+        });
     }
 
     private void showRecyclerGrid(){
