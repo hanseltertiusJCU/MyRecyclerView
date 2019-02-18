@@ -2,6 +2,7 @@ package com.example.android.myrecyclerview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -32,9 +33,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void showRecyclerList(){
         rvCategory.setLayoutManager(new LinearLayoutManager(this)); // LinearLayout is the type of RecyclerView
-        ListHeroAdapter listHeroAdapter = new ListHeroAdapter(this);
+        ListHeroAdapter listHeroAdapter = new ListHeroAdapter(this); // Create Adapter object that extends RecyclerViewAdapter
         listHeroAdapter.setListHero(list); // Call setter method dri ArrayList yg menampung data sbg parameter
         rvCategory.setAdapter(listHeroAdapter); // Set adapter ke RecyclerView
+    }
+
+    private void showRecyclerGrid(){
+        rvCategory.setLayoutManager(new GridLayoutManager(this, 2)); // GridLayout is the type of RecyclerView
+        GridHeroAdapter gridHeroAdapter = new GridHeroAdapter(this); // Create Adapter object that extends RecyclerViewAdapter
+        gridHeroAdapter.setListHero(list); // Call setter method dri ArrayList yg menampung data sbg parameter
+        rvCategory.setAdapter(gridHeroAdapter); // Set adapter ke RecyclerView
     }
 
     @Override
@@ -44,10 +52,13 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Action when menu item is selected
         switch (item.getItemId()){
             case R.id.action_list:
+                showRecyclerList(); // Call method that show list in recyclerview
                 break;
             case R.id.action_grid:
+                showRecyclerGrid(); // Call method that show grid in recyclerview
                 break;
             case R.id.action_cardview:
                 break;
